@@ -58,8 +58,10 @@ public final class RESTAnimeModelConverter {
         resultAnime.airingStatus = anime.airingStatus;
         resultAnime.adult = anime.adult;
         resultAnime.watching = anime.watching;
-        resultAnime.description = anime.description;
-        resultAnime.description.replace("<br>", "");
+        if (anime.description != null) {
+            resultAnime.description = anime.description;
+            resultAnime.description.replace("<br>", "");
+        }
         resultAnime.startDate = (anime.startDate == null) ? new Date() : DateUtils.iso8601ToDate(anime.startDate);
         resultAnime.endDate = (anime.endDate == null) ? new Date() : DateUtils.iso8601ToDate(anime.endDate);
         resultAnime.youtubeId = anime.youtubeId;
