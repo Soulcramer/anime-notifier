@@ -1,15 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Anime Release Notifier</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Anime Notifier</string>
+    <string name="app_intro">Introduction</string>
     <string name="action_settings">Settings</string>
-	<string name="action_view_as_list">View as list</string>
-	<string name="action_view_as_grid">View as grid</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_view_as_list">View as list</string>
+    <string name="action_view_as_grid">View as grid</string>
     <string name="title_activity_settings">Settings</string>
-	<string name="cover_image">Cover image</string>
-	<string name="new_episodes_available">New episodes available</string>
-	<string name="title_activity_watching">Watching</string>
+    <string name="cover_image">Cover image</string>
+    <string name="new_episodes_available">New episodes available</string>
+    <string name="title_activity_watching">Watching</string>
+    <string name="anime.title.summary">Summary</string>
+    <string name="anime.title.genre">Genres</string>
+    <string name="account_type">moe.notify.animenotifier.account</string>
+    <string name="stub_content_authority">moe.notify.animenotifier.provider</string>
+    <string name="drawer.description.open">Open</string>
+    <string name="drawer.description.close">Close</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_profile_image"/>
+    <string name="nav.title.profile">Profile</string>
+    <string name="nav.title.animeList">AnimeList</string>
+    <string name="nav.title.messages">Messages</string>
+    <string name="nav.title.settings">Settings</string>
+    <string name="nav.title.feedback">Feedback</string>
+    <string name="nav.title.help">Help</string>
+    <string name="nav.title.about">About</string>
+
+    <string name="date.anime.today">Today</string>
+    <string name="date.anime.yesterday">Yesterday</string>
+    <string name="date.anime.tomorrow">Tomorrow</string>
+    <string name="description.image.anime.row"/>
+    <string name="action.anime"/>
+    <string name="progress.getting.list">We\'re getting your list</string>
 
 </resources>

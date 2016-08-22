@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceCategory android:title="Basic">
-		<EditTextPreference android:title="User name"
+		<EditTextPreference
 			android:defaultValue=""
-			android:summary="Your user name on animereleasenotifier.com"
-			android:singleLine="true"
+			android:key="userName"
 			android:maxLength="50"
-			android:key="userName" />
+			android:singleLine="true"
+			android:summary="Your user name on notify.moe"
+			android:title="User name"/>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="Advanced">
-		<ListPreference android:title="Mobile anime provider"
+		<!--<ListPreference android:title="Mobile anime provider"
 						android:defaultValue="Nyaa"
 						android:summary="Select the anime provider for your mobile phone"
 						android:key="animeProvider"
 						android:entries="@array/animeProviderNames"
-						android:entryValues="@array/animeProviderValues"/>
+						android:entryValues="@array/animeProviderValues"/>-->
 
-		<ListPreference android:title="Update interval"
+		<ListPreference
 			android:defaultValue="60"
-			android:summary="After how many minutes we check for new episodes"
-			android:key="updateInterval"
 			android:entries="@array/intervalNames"
-			android:entryValues="@array/intervalValues"/>
+			android:entryValues="@array/intervalValues"
+			android:key="updateInterval"
+			android:summary="After how many minutes we check for new episodes"
+			android:title="Update interval"/>
 	</PreferenceCategory>
 </PreferenceScreen>

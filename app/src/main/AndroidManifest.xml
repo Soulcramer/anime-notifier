@@ -1,48 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.freezingwind.animereleasenotifier" >
+          package="com.freezingwind.animereleasenotifier">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
-        android:name=".controller.AppController"
+        android:name="moe.notify.animenotifier.AndroidApplication"
         android:allowBackup="true"
-        android:icon="@drawable/launcher_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.animelist.AnimeListActivity"
-            android:label="@string/app_name" >
+            android:name="moe.notify.animenotifier.presentation.ui.activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme"
+            >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
-
-        <receiver
-            android:name=".receiver.AlarmReceiver"
-            android:enabled="true"
-            android:exported="true" >
-        </receiver>
-        <receiver
-            android:name=".receiver.BootReceiver"
-            android:enabled="false" >
+            android:name="moe.notify.animenotifier.presentation.ui.activities.SettingsActivity"
+            android:label="@string/title_activity_settings">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+                <action android:name="android.intent.action.MAIN"/>
 
-        <activity
-            android:name=".WatchingActivity"
-            android:label="@string/title_activity_watching" >
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+            </intent-filter>
         </activity>
+
+        <activity android:name="moe.notify.animenotifier.presentation.ui.activities.AnimeActivity">
+        </activity>
+
+        <!-- Sync service section -->
+        <service
+            android:name="moe.notify.animenotifier.sync.auth.AuthenticatorService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
+        </service>
+        <service
+            android:name="moe.notify.animenotifier.sync.SyncService"
+            android:exported="true"
+            android:permission="">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter"/>
+        </service>
+
+        <provider
+            android:name="moe.notify.animenotifier.storage.contentprovider.StubProvider"
+            android:authorities="moe.notify.animenotifier.provider"
+            android:exported="false"
+            android:syncable="true"/>
+
     </application>
 
 </manifest>
+
