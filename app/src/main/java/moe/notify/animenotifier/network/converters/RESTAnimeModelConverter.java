@@ -59,6 +59,7 @@ public final class RESTAnimeModelConverter {
         resultAnime.adult = anime.adult;
         resultAnime.watching = anime.watching;
         resultAnime.description = anime.description;
+        resultAnime.description.replace("<br>", "");
         resultAnime.startDate = (anime.startDate == null) ? new Date() : DateUtils.iso8601ToDate(anime.startDate);
         resultAnime.endDate = (anime.endDate == null) ? new Date() : DateUtils.iso8601ToDate(anime.endDate);
         resultAnime.youtubeId = anime.youtubeId;
@@ -71,28 +72,34 @@ public final class RESTAnimeModelConverter {
         resultAnime.duration = anime.duration;
         resultAnime.preferredTitle = anime.preferredTitle;
 
-        resultAnime.episodes = new Episodes();
-        resultAnime.episodes.available = anime.episodes.available;
-        resultAnime.episodes.max = anime.episodes.max;
-        resultAnime.episodes.next = anime.episodes.next;
-        resultAnime.episodes.offset = anime.episodes.offset;
-        resultAnime.episodes.watched = anime.episodes.watched;
+        if (anime.episodes != null) {
+            resultAnime.episodes = new Episodes();
+            resultAnime.episodes.available = anime.episodes.available;
+            resultAnime.episodes.max = anime.episodes.max;
+            resultAnime.episodes.next = anime.episodes.next;
+            resultAnime.episodes.offset = anime.episodes.offset;
+            resultAnime.episodes.watched = anime.episodes.watched;
+        }
 
         resultAnime.hashtag = anime.hashtag;
         resultAnime.anilistEdited = anime.anilistEdited;
 
-        resultAnime.animeProvider = new AnimeProvider();
-        resultAnime.animeProvider.available = anime.animeProvider.available;
-        resultAnime.animeProvider.nextEpisode = new NextEpisode();
-        resultAnime.animeProvider.nextEpisode.url = (anime.animeProvider.nextEpisode == null) ? "" : anime.animeProvider.nextEpisode.url;
-        resultAnime.animeProvider.rssUrl = anime.animeProvider.rssUrl;
-        resultAnime.animeProvider.type = anime.animeProvider.type;
-        resultAnime.animeProvider.url = anime.animeProvider.url;
+        if (anime.animeProvider != null) {
+            resultAnime.animeProvider = new AnimeProvider();
+            resultAnime.animeProvider.available = anime.animeProvider.available;
+            resultAnime.animeProvider.nextEpisode = new NextEpisode();
+            resultAnime.animeProvider.nextEpisode.url = (anime.animeProvider.nextEpisode == null) ? "" : anime.animeProvider.nextEpisode.url;
+            resultAnime.animeProvider.rssUrl = anime.animeProvider.rssUrl;
+            resultAnime.animeProvider.type = anime.animeProvider.type;
+            resultAnime.animeProvider.url = anime.animeProvider.url;
+        }
 
-        resultAnime.airingDate = new AiringDate();
-        resultAnime.airingDate.remaining = anime.airingDate.remaining;
-        resultAnime.airingDate.remainingString = anime.airingDate.remainingString;
-        resultAnime.airingDate.timeStamp = anime.airingDate.timeStamp;
+        if (anime.airingDate != null) {
+            resultAnime.airingDate = new AiringDate();
+            resultAnime.airingDate.remaining = anime.airingDate.remaining;
+            resultAnime.airingDate.remainingString = anime.airingDate.remainingString;
+            resultAnime.airingDate.timeStamp = anime.airingDate.timeStamp;
+        }
 
         List<RESTAnimeLink> links = anime.links;
         resultAnime.links = new ArrayList<>();

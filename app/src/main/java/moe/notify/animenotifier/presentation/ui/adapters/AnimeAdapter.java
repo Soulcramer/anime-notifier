@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.freezingwind.animereleasenotifier.R;
 
 import butterknife.BindView;
@@ -24,19 +23,19 @@ import moe.notify.animenotifier.presentation.ui.listeners.RecyclerViewClickListe
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> implements RecyclerViewClickListener {
 
     private static final String TAG = "AnimeAdapter";
-    public final AnimeListPresenter.View mView;
+    public final AnimeListPresenter.View view;
     // Store the context for easy access
-    private final Context mContext;
+    private final Context context;
     // Store a member variable for the contacts
-    private AnimeList mAnimes;
+    private AnimeList animeList;
     private boolean grid;
 
     // Pass in the contact array into the constructor
     public AnimeAdapter(Context context, boolean grid, AnimeListPresenter.View view) {
-        mAnimes = new AnimeList();
-        mView = view;
+        animeList = new AnimeList();
+        this.view = view;
         this.grid = grid;
-        mContext = context;
+        this.context = context;
     }
 
     public boolean isGrid() {
@@ -62,7 +61,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Anime anime = mAnimes.animes.get(position);
+        Anime anime = animeList.animes.get(position);
         holder.setup(anime);
 
 
@@ -71,45 +70,44 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return (mAnimes == null) ? 0 : mAnimes.animes.size();
+        return (animeList == null) ? 0 : animeList.animes.size();
     }
 
 
     public void addNewAnimes(@NonNull AnimeList animeList) {
         // clean up old data
-        if (mAnimes != null) {
-            mAnimes.animes.clear();
+        if (this.animeList != null) {
+            this.animeList.animes.clear();
         }
-        mAnimes = animeList;
+        this.animeList = animeList;
 
         notifyDataSetChanged();
     }
 
     @Override
     public void onClickView(int position) {
-//        mView.
+        view.onClickAnime(animeList.animes.get(position).id);
     }
 
     @Override
     public void onClickDownload(int position, long animeId) {
-        mView.onClickDownload(animeId, position);
+        view.onClickDownload(animeId, position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, IndividualAnimeViewClickListener {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, IndividualAnimeViewClickListener {
 
+        private final RecyclerViewClickListener mListener;
         @BindView(R.id.title)
-        public TextView titleTextView;
+        TextView titleTextView;
         @BindView(R.id.airingDate)
-        public TextView airingTextView;
+        TextView airingTextView;
         @BindView(R.id.image)
-        public ImageView animeImageView;
+        ImageView animeImageView;
         @BindView(R.id.actionImage)
-        public ImageView actionImageView;
-
-        private RecyclerViewClickListener mListener;
+        ImageView actionImageView;
 
 
-        public ViewHolder(View itemView, final RecyclerViewClickListener listener) {
+        ViewHolder(View itemView, final RecyclerViewClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
@@ -117,28 +115,30 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
             itemView.setOnClickListener(this);
 
+            actionImageView.setOnClickListener(this);
+
 
         }
 
-        public void setup(Anime anime) {
+        void setup(Anime anime) {
             Context context = titleTextView.getContext();
 
             titleTextView.setText(anime.title.romaji);
 
 // TODO: 31/07/2016 this string cut the remaining time n a gridview on landscape
 //        String remainingText;
-////        if(!anime.mDate.remainingString.isEmpty()){
-////            remainingText = ((anime.episodes.watched < anime.episodes.available) ? "Released " : "Released in ") +anime.mDate.remainingString;
+////        if(!animeList.mDate.remainingString.isEmpty()){
+////            remainingText = ((animeList.episodes.watched < animeList.episodes.available) ? "Released " : "Released in ") +animeList.mDate.remainingString;
 ////        }else{
 ////            remainingText = "";
 ////        }
             airingTextView.setText(anime.airingDate.remainingString);
 
             // Mark as new
-//            if (anime.episodes.watched < (anime.episodes.available - anime.episodes.offset)) {
+//            if (animeList.episodes.watched < (animeList.episodes.available - animeList.episodes.offset)) {
 //                actionImageView.setImageResource(R.drawable.ic_cloud_download_black_24dp);
 ////            holder.itemView.setBackgroundColor(Color.rgb(248,165,130));
-//            } else if (anime.airingStatus.equals("completed") || (anime.episodes.available == anime.episodes.watched)) {
+//            } else if (animeList.airingStatus.equals("completed") || (animeList.episodes.available == animeList.episodes.watched)) {
 //                actionImageView.setImageResource(R.drawable.ic_check_black_24dp);
 //            } else {
 //                actionImageView.setImageResource(R.drawable.ic_error_outline_black_24dp);
@@ -147,8 +147,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
             // Image
             Glide.with(context)
                     .load(anime.image)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .animate(animationObject)
                     .crossFade()
                     .centerCrop()
                     .into(animeImageView);

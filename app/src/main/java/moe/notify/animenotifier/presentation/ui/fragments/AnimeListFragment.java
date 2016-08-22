@@ -36,7 +36,7 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class AnimeListFragment extends Fragment implements AnimeListPresenter.View {
-    private static final String EXTRA_ANIME_ID = "extra_anime_id_key";
+    public static final String EXTRA_ANIME_ID = "extra_anime_id_key";
     protected Context mContext;
     protected AnimeAdapter adapter;
     protected boolean useGridView;
@@ -103,9 +103,9 @@ public class AnimeListFragment extends Fragment implements AnimeListPresenter.Vi
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         unbinder.unbind();
         Timber.w("ONDESTROYVIEW");
+        super.onDestroyView();
     }
 
     private void init() {
@@ -323,6 +323,12 @@ public class AnimeListFragment extends Fragment implements AnimeListPresenter.Vi
     @Override
     public void onClickDownload(long animeId, int position) {
 
+        // TODO: 22/08/2016 redirect the user to the next episode or the anime provider or the anime website in the last case.
+        Timber.d("Click on Anime action");
+    }
+
+    @Override
+    public void onClickAnime(long animeId) {
         // intent to start another activity
         final Intent intent = new Intent(mContext, AnimeActivity.class);
         intent.putExtra(EXTRA_ANIME_ID, animeId);

@@ -2,8 +2,6 @@ package moe.notify.animenotifier.domain.interactors.impl;
 
 import android.support.annotation.NonNull;
 
-import com.raizlabs.android.dbflow.annotation.NotNull;
-
 import moe.notify.animenotifier.domain.executor.Executor;
 import moe.notify.animenotifier.domain.executor.MainThread;
 import moe.notify.animenotifier.domain.interactors.GetAllAnimesInteractor;
@@ -17,7 +15,7 @@ public class GetAllAnimesInteractorImpl extends AbstractInteractor implements Ge
     private Callback mCallback;
     private AnimeRepository mAnimeRepository;
 
-    public GetAllAnimesInteractorImpl(Executor threadExecutor, MainThread mainThread, @NotNull AnimeRepository animeRepository, @NonNull Callback callback) {
+    public GetAllAnimesInteractorImpl(Executor threadExecutor, MainThread mainThread, @NonNull AnimeRepository animeRepository, @NonNull Callback callback) {
         super(threadExecutor, mainThread);
 
         mAnimeRepository = animeRepository;
@@ -30,7 +28,7 @@ public class GetAllAnimesInteractorImpl extends AbstractInteractor implements Ge
         final AnimeList animeList = mAnimeRepository.getAnimeListByUser("scott");
 
 
-        mMainThread.post(new Runnable() {
+        mainThread.post(new Runnable() {
             @Override
             public void run() {
                 mCallback.onAnimeListRetrieved(animeList);

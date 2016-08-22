@@ -13,6 +13,8 @@ import moe.notify.animenotifier.domain.model.animelist.AnimeList;
 import moe.notify.animenotifier.domain.repository.AnimeRepository;
 import moe.notify.animenotifier.network.RestClient;
 import moe.notify.animenotifier.network.converters.RESTAnimeListModelConverter;
+import moe.notify.animenotifier.network.converters.RESTAnimeModelConverter;
+import moe.notify.animenotifier.network.model.anime.RESTAnime;
 import moe.notify.animenotifier.network.model.animelist.RESTAnimeList;
 import moe.notify.animenotifier.network.services.SyncService;
 import moe.notify.animenotifier.storage.converters.StorageModelConverter;
@@ -59,15 +61,35 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
     @Override
     public Anime getAnimeById(long id) {
-//        moe.notify.animenotifier.storage.model.Anime anime = SQLite
-//                .select()
-//                .from(moe.notify.animenotifier.storage.model.Anime.class)
-//                .where(Anime_Table.id.eq(id))
-//                .querySingle();
-//        SyncAdapter.triggerSync(mContext);
-        Anime resultAnime = new Anime();
-//        StorageModelConverter.convertToDomainModel(anime, resultAnime);
-        return resultAnime;
+        moe.notify.animenotifier.storage.model.Anime savedAnime = SQLite
+                .select()
+                .from(moe.notify.animenotifier.storage.model.Anime.class)
+                .where(Anime_Table.id.eq(id))
+                .querySingle();
+        Anime anime = new Anime();
+        if (savedAnime == null) {
+            savedAnime = new moe.notify.animenotifier.storage.model.Anime();
+
+            SyncService syncService = RestClient.getService(SyncService.class);
+            try {
+                Response<RESTAnime> response = syncService.getAnimeById(id).execute();
+
+                RESTAnimeModelConverter.convertToDomainModel(response.body(), anime);
+
+                // everything went well, mark local cost items as synced
+                if (response.isSuccessful()) {
+//                    StorageModelConverter.convertToStorageModel(anime, savedAnime);
+
+//                mAnimeRepository.markSynced(mUnsyncedAnimes);
+                }
+
+            } catch (IOException e) {
+                Timber.e(e, "A problem occur while trying to talk with the server");
+            }
+        } else {
+            StorageModelConverter.convertToDomainModel(savedAnime, anime);
+        }
+        return anime;
     }
 
     @Override

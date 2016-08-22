@@ -15,15 +15,15 @@ import moe.notify.animenotifier.domain.executor.MainThread;
  */
 public abstract class AbstractInteractor implements Interactor {
 
-    protected Executor mThreadExecutor;
-    protected MainThread mMainThread;
+    protected Executor threadExecutor;
+    protected MainThread mainThread;
 
-    protected volatile boolean mIsCanceled;
-    protected volatile boolean mIsRunning;
+    protected volatile boolean isCanceled;
+    protected volatile boolean isRunning;
 
     public AbstractInteractor(Executor threadExecutor, MainThread mainThread) {
-        mThreadExecutor = threadExecutor;
-        mMainThread = mainThread;
+        this.threadExecutor = threadExecutor;
+        this.mainThread = mainThread;
     }
 
     /**
@@ -36,27 +36,27 @@ public abstract class AbstractInteractor implements Interactor {
     public abstract void run();
 
     public void cancel() {
-        mIsCanceled = true;
-        mIsRunning = false;
+        isCanceled = true;
+        isRunning = false;
     }
 
     public boolean isRunning() {
-        return mIsRunning;
+        return isRunning;
     }
 
     public void onFinished() {
-        mIsRunning = false;
-        mIsCanceled = false;
+        isRunning = false;
+        isCanceled = false;
     }
 
     @Override
     public void execute() {
 
         // mark this interactor as running
-        mIsRunning = true;
+        isRunning = true;
 
         // start running this interactor in a background thread
-        mThreadExecutor.execute(this);
+        threadExecutor.execute(this);
     }
 
 }

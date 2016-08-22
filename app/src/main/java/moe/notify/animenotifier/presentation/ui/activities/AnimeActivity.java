@@ -10,9 +10,16 @@ import com.freezingwind.animereleasenotifier.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import moe.notify.animenotifier.domain.executor.impl.ThreadExecutor;
 import moe.notify.animenotifier.domain.model.anime.Anime;
+import moe.notify.animenotifier.presentation.presenters.AnimePresenter;
+import moe.notify.animenotifier.presentation.presenters.impl.AnimePresenterImpl;
+import moe.notify.animenotifier.presentation.ui.fragments.AnimeListFragment;
+import moe.notify.animenotifier.storage.AnimeRepositoryImpl;
+import moe.notify.animenotifier.threading.MainThreadImpl;
+import timber.log.Timber;
 
-public class AnimeActivity extends AppCompatActivity {
+public class AnimeActivity extends AppCompatActivity implements AnimePresenter.View {
 
 
     // Automatically finds each field by the specified ID.
@@ -20,6 +27,8 @@ public class AnimeActivity extends AppCompatActivity {
     TextView mDescription;
     @BindView(R.id.toolbar)
     Toolbar mAnimeToolbar;
+    private AnimePresenter animePresenter;
+    private long animeId;
 
 
     @Override
@@ -27,19 +36,46 @@ public class AnimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime);
         ButterKnife.bind(this);
+        Timber.w("ONCREATEVIEW");
+        animeId = getIntent().getLongExtra(AnimeListFragment.EXTRA_ANIME_ID, 0);
+        init();
         setSupportActionBar(mAnimeToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Anime anime = getIntent().getParcelableExtra("clickedAnime");
-        if (anime.description != null) {
-            anime.description = anime.description.replace("<br>", "");
-        } else {
-            anime.description = "No description available ¯\\_(ツ)_/¯ ";
-        }
 
-        mDescription.setText(anime.description);
-        getSupportActionBar().setTitle(anime.preferredTitle);
-        getSupportActionBar().setSubtitle(anime.title.japanese);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        animePresenter.getAnime(animeId);
+        Timber.w("ONRESUME");
+    }
+
+
+    @Override
+    protected void onStop() {
+        Timber.w("ONSTOP");
+        animePresenter.stop();
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Timber.w("ONDESTROY");
+        super.onDestroy();
+    }
+
+    private void init() {
+        animePresenter = new AnimePresenterImpl(
+                ThreadExecutor.getInstance(),
+                MainThreadImpl.getInstance(),
+                this,
+                new AnimeRepositoryImpl(this)
+        );
+
+
+
     }
 
 
@@ -56,4 +92,26 @@ public class AnimeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void showAnime(Anime anime) {
+        mDescription.setText(anime.description);
+        getSupportActionBar().setTitle(anime.title.romaji);
+        getSupportActionBar().setSubtitle(anime.title.japanese);
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void showError(String message) {
+
+    }
 }

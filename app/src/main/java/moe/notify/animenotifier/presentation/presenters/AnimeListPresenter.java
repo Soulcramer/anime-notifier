@@ -15,6 +15,8 @@ public interface AnimeListPresenter extends BasePresenter {
 
         void onClickDownload(long animeId, int position);
 
+        void onClickAnime(long animeId);
+
     }
 
 
