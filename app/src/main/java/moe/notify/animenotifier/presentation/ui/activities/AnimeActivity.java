@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.freezingwind.animereleasenotifier.R;
@@ -95,12 +94,6 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
     @Override
     public void showAnime(Anime anime) {
-        mDescription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         mDescription.setText(anime.description);
         getSupportActionBar().setTitle(anime.title.romaji);
         getSupportActionBar().setSubtitle(anime.title.japanese);
