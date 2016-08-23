@@ -5,6 +5,6 @@ public interface RecyclerViewClickListener {
 
     void onClickView(int position);
 
-    void onClickDownload(int position, long animeId);
+    void onClickAction(int position);
 
 }

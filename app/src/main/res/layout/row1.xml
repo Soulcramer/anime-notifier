@@ -5,21 +5,10 @@
     android:id="@+id/listItem"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:alpha="1"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
     android:orientation="horizontal"
     android:weightSum="1">
-
-    <ImageView
-        android:id="@+id/actionImage"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="?android:attr/selectableItemBackground"
-        android:contentDescription="@string/description.image.anime.row"
-        android:padding="16dp"
-        app:srcCompat="@drawable/ic_cloud_download_black_24dp"/>
 
     <TextView
         android:id="@+id/title"
@@ -52,7 +41,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textSize="14sp"
-        android:visibility="visible"
         tools:text="Airing date"/>
 
     <ImageView
@@ -64,7 +52,19 @@
         android:layout_alignParentTop="true"
         android:contentDescription="@string/cover_image"
         android:scaleType="centerCrop"
-        android:visibility="visible"
-        app:srcCompat="@drawable/arn_waifu"/>
+        tools:src="@drawable/arn_waifu"/>
+
+    <ImageView
+        android:id="@+id/actionImage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:contentDescription="@string/description.image.anime.row"
+        android:padding="16dp"
+        app:srcCompat="@drawable/ic_cloud_download_black_24dp"/>
 
 </RelativeLayout>

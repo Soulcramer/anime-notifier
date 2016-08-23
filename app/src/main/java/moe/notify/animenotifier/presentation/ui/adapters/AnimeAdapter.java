@@ -86,12 +86,13 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public void onClickView(int position) {
+
         view.onClickAnime(animeList.animes.get(position).id);
     }
 
     @Override
-    public void onClickDownload(int position, long animeId) {
-        view.onClickDownload(animeId, position);
+    public void onClickAction(int position) {
+        view.onClickDownload(animeList.animes.get(position).id, position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, IndividualAnimeViewClickListener {
@@ -113,9 +114,14 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
             mListener = listener;
 
-            itemView.setOnClickListener(this);
+            actionImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mListener.onClickAction(getAdapterPosition());
+                }
+            });
 
-            actionImageView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
 
         }
@@ -157,9 +163,10 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
             mListener.onClickView(getAdapterPosition());
         }
 
+
         @Override
-        public void onClickDownload(long animeId) {
-            mListener.onClickDownload(getAdapterPosition(), animeId);
+        public void onClickAction(long animeId) {
+            mListener.onClickAction(getAdapterPosition());
         }
     }
 
