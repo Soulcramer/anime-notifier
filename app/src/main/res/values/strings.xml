@@ -35,5 +35,7 @@
     <string name="description.image.anime.row"/>
     <string name="action.anime"/>
     <string name="progress.getting.list">We\'re getting your list</string>
+    <string name="anime.title.airingStatus">Airing status</string>
+    <string name="anime.title.source">Source</string>
 
 </resources>

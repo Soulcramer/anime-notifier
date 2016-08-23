@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.freezingwind.animereleasenotifier.R;
 
 import butterknife.BindView;
@@ -24,7 +26,13 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
     // Automatically finds each field by the specified ID.
     @BindView(R.id.anime_summary_txt)
-    TextView mDescription;
+    TextView descriptionTextView;
+    @BindView(R.id.anime_airingStatus_txt)
+    TextView airingStatusTextView;
+    @BindView(R.id.anime_source_txt)
+    TextView sourceTextView;
+    @BindView(R.id.anime_image)
+    ImageView coverImageView;
     @BindView(R.id.toolbar)
     Toolbar mAnimeToolbar;
     private AnimePresenter animePresenter;
@@ -75,7 +83,6 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
         );
 
 
-
     }
 
 
@@ -94,7 +101,14 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
     @Override
     public void showAnime(Anime anime) {
-        mDescription.setText(anime.description);
+        Glide.with(this)
+                .load(anime.image)
+                .crossFade()
+                .fitCenter()
+                .into(coverImageView);
+        descriptionTextView.setText(anime.description);
+        airingStatusTextView.setText(anime.airingStatus);
+        sourceTextView.setText(anime.source);
         getSupportActionBar().setTitle(anime.title.romaji);
         getSupportActionBar().setSubtitle(anime.title.japanese);
 
