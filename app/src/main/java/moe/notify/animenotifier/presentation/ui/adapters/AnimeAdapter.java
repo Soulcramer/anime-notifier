@@ -14,8 +14,8 @@ import com.freezingwind.animereleasenotifier.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import moe.notify.animenotifier.domain.model.anime.Anime;
 import moe.notify.animenotifier.domain.model.animelist.AnimeList;
+import moe.notify.animenotifier.domain.model.animelist.WatchingAnime;
 import moe.notify.animenotifier.presentation.presenters.AnimeListPresenter;
 import moe.notify.animenotifier.presentation.ui.listeners.IndividualAnimeViewClickListener;
 import moe.notify.animenotifier.presentation.ui.listeners.RecyclerViewClickListener;
@@ -61,7 +61,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Anime anime = animeList.animes.get(position);
+        WatchingAnime anime = animeList.animes.get(position);
         holder.setup(anime);
 
 
@@ -126,7 +126,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
         }
 
-        void setup(Anime anime) {
+        void setup(WatchingAnime anime) {
             Context context = titleTextView.getContext();
 
             titleTextView.setText(anime.title.romaji);

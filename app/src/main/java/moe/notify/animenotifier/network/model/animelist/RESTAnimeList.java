@@ -6,8 +6,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-import moe.notify.animenotifier.network.model.anime.RESTAnime;
-
 
 public class RESTAnimeList {
 
@@ -22,7 +20,7 @@ public class RESTAnimeList {
     public String listUrl;
     @SerializedName("watching")
     @Expose
-    public List<RESTAnime> animes = new ArrayList<>();
+    public List<RESTWatchingAnime> watchings = new ArrayList<>();
     @SerializedName("cacheKey")
     @Expose
     public String cacheKey;

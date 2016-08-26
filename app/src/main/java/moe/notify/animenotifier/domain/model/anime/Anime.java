@@ -21,16 +21,39 @@ public class Anime {
     public String classification;
     public int totalEpisodes;
     public int duration;
-    public String preferredTitle;
-    public Episodes episodes;
     public String hashtag;
     public long anilistEdited;
-    public AnimeProvider animeProvider;
-    public AiringDate airingDate;
     public List<AnimeLink> links;
     public List<AnimeStudio> studios;
     public List<AnimeRelation> relations;
     public AnimeTracks tracks;
 
 
+    @Override
+    public String toString() {
+        return "Anime{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", title=" + title.toString() +
+                ", image='" + image + '\'' +
+                ", airingStatus='" + airingStatus + '\'' +
+                ", adult=" + adult +
+                ", watching=" + watching +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate.toString() +
+                ", endDate=" + endDate.toString() +
+                ", youtubeId='" + youtubeId + '\'' +
+                ", genres=" + genres.size() +
+                ", source='" + source + '\'' +
+                ", classification='" + classification + '\'' +
+                ", totalEpisodes=" + totalEpisodes +
+                ", duration=" + duration +
+                ", hashtag='" + hashtag + '\'' +
+                ", anilistEdited=" + anilistEdited +
+                ", links=" + links.size() +
+                ", studios=" + studios.size() +
+                ", relations=" + relations.size() +
+                ", tracks=" + tracks.toString() +
+                '}';
+    }
 }

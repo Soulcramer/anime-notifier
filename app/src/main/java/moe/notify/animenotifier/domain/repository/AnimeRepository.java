@@ -3,7 +3,6 @@ package moe.notify.animenotifier.domain.repository;
 import java.util.List;
 
 import moe.notify.animenotifier.domain.model.anime.Anime;
-import moe.notify.animenotifier.domain.model.animelist.AnimeList;
 
 
 public interface AnimeRepository {
@@ -12,15 +11,13 @@ public interface AnimeRepository {
 
     void update(Anime anime);
 
-    Anime getAnimeById(long id);
+    Anime getById(long id);
 
-    AnimeList getAnimeListByUser(String user);
+    List<Anime> getAll();
 
-    List<Anime> getAllAnimes();
+    List<Anime> getAllUnsynced();
 
-    List<Anime> getAllUnsyncedAnimes();
-
-    void updateAllAnimes();
+    void updateAll();
 
     void markSynced(List<Anime> animes);
 

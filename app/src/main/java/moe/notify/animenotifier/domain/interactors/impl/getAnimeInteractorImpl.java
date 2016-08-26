@@ -25,7 +25,7 @@ public class GetAnimeInteractorImpl extends AbstractInteractor implements GetAni
 
     @Override
     public void run() {
-        final Anime anime = animeRepository.getAnimeById(animeId);
+        final Anime anime = animeRepository.getById(animeId);
 
         mainThread.post(new Runnable() {
             @Override

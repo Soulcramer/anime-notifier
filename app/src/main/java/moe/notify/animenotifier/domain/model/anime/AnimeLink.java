@@ -1,7 +1,9 @@
 package moe.notify.animenotifier.domain.model.anime;
 
 
-public class AnimeLink {
+import moe.notify.animenotifier.domain.model.DomainModel;
+
+public class AnimeLink implements DomainModel {
 
     public String url;
     public String title;

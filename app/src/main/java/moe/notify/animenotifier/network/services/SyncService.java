@@ -22,7 +22,10 @@ public interface SyncService {
     Call<RESTAnimeList> getAnimeListFromUser(@Path("username") String username);
 
     /**
-     * This endpoint will be used to get new costs created on this device.
+     * Get the anime with the required id.
+     *
+     * @param id Id of the current or wanted anime.
+     * @return The RESTAnime of the corresponding anime.
      */
     @GET("anime/{id}")
     Call<RESTAnime> getAnimeById(@Path("id") long id);

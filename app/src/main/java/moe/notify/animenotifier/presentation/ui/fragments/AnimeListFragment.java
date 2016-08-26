@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.freezingwind.animereleasenotifier.R;
 
@@ -28,7 +29,7 @@ import moe.notify.animenotifier.presentation.presenters.AnimeListPresenter;
 import moe.notify.animenotifier.presentation.presenters.impl.AnimeListPresenterImpl;
 import moe.notify.animenotifier.presentation.ui.activities.AnimeActivity;
 import moe.notify.animenotifier.presentation.ui.adapters.AnimeAdapter;
-import moe.notify.animenotifier.storage.AnimeRepositoryImpl;
+import moe.notify.animenotifier.storage.AnimeListRepositoryImpl;
 import moe.notify.animenotifier.threading.MainThreadImpl;
 import timber.log.Timber;
 
@@ -52,10 +53,6 @@ public class AnimeListFragment extends Fragment implements AnimeListPresenter.Vi
     private RecyclerView.ItemDecoration itemDecoration;
     private Unbinder unbinder;
     private AnimeListPresenter mAnimeListPresenter;
-
-    public AnimeListFragment() {
-        // ...
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -137,7 +134,8 @@ public class AnimeListFragment extends Fragment implements AnimeListPresenter.Vi
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 this,
-                new AnimeRepositoryImpl(mContext)
+                new AnimeListRepositoryImpl(getContext()) {
+                }
         );
 
     }
@@ -351,6 +349,6 @@ public class AnimeListFragment extends Fragment implements AnimeListPresenter.Vi
 
     @Override
     public void showError(String message) {
-
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 }

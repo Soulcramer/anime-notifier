@@ -61,21 +61,12 @@ public class RESTAnime {
     @SerializedName("preferredTitle")
     @Expose
     public String preferredTitle;
-    @SerializedName("episodes")
-    @Expose
-    public RESTEpisodes episodes;
     @SerializedName("hashtag")
     @Expose
     public String hashtag;
     @SerializedName("anilistEdited")
     @Expose
     public long anilistEdited;
-    @SerializedName("animeProvider")
-    @Expose
-    public RESTAnimeProvider animeProvider;
-    @SerializedName("airingDate")
-    @Expose
-    public RESTAiringDate airingDate;
     @SerializedName("links")
     @Expose
     public List<RESTAnimeLink> links = new ArrayList<>();

@@ -5,22 +5,23 @@ import moe.notify.animenotifier.domain.executor.MainThread;
 import moe.notify.animenotifier.domain.interactors.GetAllAnimesInteractor;
 import moe.notify.animenotifier.domain.interactors.impl.GetAllAnimesInteractorImpl;
 import moe.notify.animenotifier.domain.model.animelist.AnimeList;
-import moe.notify.animenotifier.domain.repository.AnimeRepository;
+import moe.notify.animenotifier.domain.repository.AnimeListRepository;
 import moe.notify.animenotifier.presentation.presenters.AnimeListPresenter;
 import moe.notify.animenotifier.presentation.presenters.base.AbstractPresenter;
 
 
 public class AnimeListPresenterImpl extends AbstractPresenter implements AnimeListPresenter, GetAllAnimesInteractor.Callback {
 
-    private AnimeListPresenter.View mView;
-    private AnimeRepository mAnimeRepository;
+    private final String username = "Scott";
+    private AnimeListPresenter.View view;
+    private AnimeListRepository animeListRepository;
     private GetAllAnimesInteractorImpl getAnimesInteractor;
 
     public AnimeListPresenterImpl(Executor executor, MainThread mainThread,
-                                  View view, AnimeRepository animeRepository) {
+                                  View view, AnimeListRepository animeListRepository) {
         super(executor, mainThread);
-        mView = view;
-        mAnimeRepository = animeRepository;
+        this.view = view;
+        this.animeListRepository = animeListRepository;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class AnimeListPresenterImpl extends AbstractPresenter implements AnimeLi
 
     @Override
     public void onError(String message) {
-        mView.hideProgress();
+        view.hideProgress();
     }
 
     @Override
@@ -54,19 +55,20 @@ public class AnimeListPresenterImpl extends AbstractPresenter implements AnimeLi
         getAnimesInteractor = new GetAllAnimesInteractorImpl(
                 mExecutor,
                 mMainThread,
-                mAnimeRepository,
-                this
+                animeListRepository,
+                this,
+                username
         );
 
         getAnimesInteractor.execute();
-        mView.showProgress();
+        view.showProgress();
     }
 
     @Override
     public void onAnimeListRetrieved(AnimeList animeList) {
 //        List<Anime> animes = AnimeConverter.convertAnimesToAnimes(animeList);
-        mView.showAnimeList(animeList);
-        mView.hideProgress();
+        view.showAnimeList(animeList);
+        view.hideProgress();
     }
 
 

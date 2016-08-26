@@ -24,7 +24,7 @@ public class AndroidApplication extends Application {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         int updateInterval = Integer.parseInt(sharedPrefs.getString("updateInterval", "60"));
 
-        AlarmHelper alarmHelper = new AlarmHelper(context, 1000 * 60 * updateInterval, 1000) {
+        AlarmHelper alarmHelper = new AlarmHelper(context, 1000L * 60L * updateInterval, 1000L) {
             @Override
             protected PendingIntent pendingIntent(Context context, int flags) {
                 Intent intent = new Intent(context, AlarmReceiver.class);

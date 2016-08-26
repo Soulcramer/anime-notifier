@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.freezingwind.animereleasenotifier.R;
 
-import moe.notify.animenotifier.domain.model.anime.Anime;
+import moe.notify.animenotifier.domain.model.animelist.WatchingAnime;
 import moe.notify.animenotifier.updater.AnimeUpdater;
 
 // AlarmReceiver
@@ -29,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         updater = new AnimeUpdater();
     }
 
-    void buildNotification(Context context, Anime anime, Bitmap largeIcon) {
+    void buildNotification(Context context, WatchingAnime anime, Bitmap largeIcon) {
 
         notificationBuilder =
                 new NotificationCompat.Builder(context)

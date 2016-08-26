@@ -94,8 +94,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 ////        Payload payload = new Payload("default");
 //
 //        // get all unsynced data
-////        mUnsyncedAnimes = mAnimeRepository.getAllUnsyncedAnimes();
-////        mUnsyncedAnime = mAnimeRepository.getAnimeById(16498);
+////        mUnsyncedAnimes = mAnimeRepository.getAllUnsynced();
+////        mUnsyncedAnime = mAnimeRepository.getById(16498);
 ////        for (Anime anime : mUnsyncedAnimes) {
 ////
 ////            // convert to models suitable for transferring over network
@@ -106,7 +106,7 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 //
 //        // run the upload
 //        try {
-//            Response<RESTAnime> response = syncService.getAnimeById(16498).execute();
+//            Response<RESTAnime> response = syncService.getById(16498).execute();
 //
 //            Timber.i("DOWNLOAD SUCCESS: %d", response.code());
 //            Anime anime = RESTAnimeModelConverter.convertToDomainModel(response.body());

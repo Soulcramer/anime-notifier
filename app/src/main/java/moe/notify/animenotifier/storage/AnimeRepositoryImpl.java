@@ -9,22 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import moe.notify.animenotifier.domain.model.anime.Anime;
-import moe.notify.animenotifier.domain.model.animelist.AnimeList;
 import moe.notify.animenotifier.domain.repository.AnimeRepository;
 import moe.notify.animenotifier.network.RestClient;
-import moe.notify.animenotifier.network.converters.RESTAnimeListModelConverter;
 import moe.notify.animenotifier.network.converters.RESTAnimeModelConverter;
 import moe.notify.animenotifier.network.model.anime.RESTAnime;
-import moe.notify.animenotifier.network.model.animelist.RESTAnimeList;
 import moe.notify.animenotifier.network.services.SyncService;
-import moe.notify.animenotifier.storage.converters.StorageModelConverter;
-import moe.notify.animenotifier.storage.model.AnimeList_Table;
-import moe.notify.animenotifier.storage.model.Anime_Table;
+import moe.notify.animenotifier.storage.converters.StorageAnimeModelConverter;
+import moe.notify.animenotifier.storage.model.anime.Anime_Table;
 import moe.notify.animenotifier.sync.SyncAdapter;
 import retrofit2.Response;
 import timber.log.Timber;
 
-import static moe.notify.animenotifier.storage.converters.StorageModelConverter.convertToStorageModel;
+import static moe.notify.animenotifier.storage.converters.StorageAnimeModelConverter.convertToStorageModel;
 
 
 public class AnimeRepositoryImpl implements AnimeRepository {
@@ -37,7 +33,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
     @Override
     public void insert(Anime item) {
-        moe.notify.animenotifier.storage.model.Anime dbItem = new moe.notify.animenotifier.storage.model.Anime();
+        moe.notify.animenotifier.storage.model.anime.Anime dbItem = new moe.notify.animenotifier.storage.model.anime.Anime();
         convertToStorageModel(item, dbItem);
 
         // mark as unsynced
@@ -49,7 +45,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
     @Override
     public void update(Anime anime) {
-        moe.notify.animenotifier.storage.model.Anime dbItem = new moe.notify.animenotifier.storage.model.Anime();
+        moe.notify.animenotifier.storage.model.anime.Anime dbItem = new moe.notify.animenotifier.storage.model.anime.Anime();
         convertToStorageModel(anime, dbItem);
 
         // mark as unsynced
@@ -60,15 +56,15 @@ public class AnimeRepositoryImpl implements AnimeRepository {
     }
 
     @Override
-    public Anime getAnimeById(long id) {
-        moe.notify.animenotifier.storage.model.Anime savedAnime = SQLite
+    public Anime getById(long id) {
+        moe.notify.animenotifier.storage.model.anime.Anime savedAnime = SQLite
                 .select()
-                .from(moe.notify.animenotifier.storage.model.Anime.class)
+                .from(moe.notify.animenotifier.storage.model.anime.Anime.class)
                 .where(Anime_Table.id.eq(id))
                 .querySingle();
         Anime anime = new Anime();
         if (savedAnime == null) {
-            savedAnime = new moe.notify.animenotifier.storage.model.Anime();
+//            savedAnime = new moe.notify.animenotifier.storage.model.anime.Anime();
 
             SyncService syncService = RestClient.getService(SyncService.class);
             try {
@@ -78,7 +74,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
                 // everything went well, mark local cost items as synced
                 if (response.isSuccessful()) {
-//                    StorageModelConverter.convertToStorageModel(anime, savedAnime);
+//                    StorageAnimeModelConverter.convertToStorageModel(anime, savedAnime);
 
 //                mAnimeRepository.markSynced(mUnsyncedAnimes);
                 }
@@ -87,49 +83,17 @@ public class AnimeRepositoryImpl implements AnimeRepository {
                 Timber.e(e, "A problem occur while trying to talk with the server");
             }
         } else {
-            StorageModelConverter.convertToDomainModel(savedAnime, anime);
+            StorageAnimeModelConverter.convertToDomainModel(savedAnime, anime);
         }
         return anime;
     }
 
-    @Override
-    public AnimeList getAnimeListByUser(String user) {
-        moe.notify.animenotifier.storage.model.AnimeList savedAnimeList = SQLite
-                .select()
-                .from(moe.notify.animenotifier.storage.model.AnimeList.class)
-                .where(AnimeList_Table.user.is(user))
-
-                .querySingle();
-        AnimeList animeList = new AnimeList();
-        if (savedAnimeList == null) {
-            savedAnimeList = new moe.notify.animenotifier.storage.model.AnimeList();
-            SyncService syncService = RestClient.getService(SyncService.class);
-            try {
-                Response<RESTAnimeList> response = syncService.getAnimeListFromUser("Scott").execute();
-
-                RESTAnimeListModelConverter.convertToDomainModel(response.body(), animeList);
-
-                // everything went well, mark local cost items as synced
-                if (response.isSuccessful()) {
-                    StorageModelConverter.convertAnimeListToStorageModel(animeList, savedAnimeList);
-
-//                mAnimeRepository.markSynced(mUnsyncedAnimes);
-                }
-
-            } catch (IOException e) {
-                Timber.e(e, "A problem occur while trying to talk with the server");
-            }
-        }
-        StorageModelConverter.convertAnimeListToDomainModel(savedAnimeList, animeList);
-
-        return animeList;
-    }
 
     @Override
-    public List<Anime> getAllAnimes() {
-        List<moe.notify.animenotifier.storage.model.Anime> animes = SQLite
+    public List<Anime> getAll() {
+        List<moe.notify.animenotifier.storage.model.anime.Anime> animes = SQLite
                 .select()
-                .from(moe.notify.animenotifier.storage.model.Anime.class)
+                .from(moe.notify.animenotifier.storage.model.anime.Anime.class)
                 .queryList();
 //        if (animes.isEmpty()) {
 //            SyncService syncService = RestClient.getService(SyncService.class);
@@ -140,7 +104,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 //
 //                // everything went well, mark local cost items as synced
 //                if (response.isSuccessful()) {
-//                    animes.add(StorageModelConverter.convertAnimeListToStorageModel(animeList));
+//                    animes.add(StorageAnimeModelConverter.convertAnimeListToStorageModel(animeList));
 //
 ////                mAnimeRepository.markSynced(mUnsyncedAnimes);
 //                }
@@ -153,7 +117,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 //        }
 
         List<Anime> animes1 = new ArrayList<>();
-        StorageModelConverter.convertListToDomainModel(animes, animes1);
+        StorageAnimeModelConverter.convertListToDomainModel(animes, animes1);
         return animes1;
 
 
@@ -162,19 +126,19 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
 
     @Override
-    public List<Anime> getAllUnsyncedAnimes() {
-        List<moe.notify.animenotifier.storage.model.Anime> animes = SQLite
+    public List<Anime> getAllUnsynced() {
+        List<moe.notify.animenotifier.storage.model.anime.Anime> animes = /*SQLite
                 .select()
-                .from(moe.notify.animenotifier.storage.model.Anime.class)
+                .from(moe.notify.animenotifier.storage.model.anime.Anime.class)
                 .where(Anime_Table.synced.eq(false))
-                .queryList();
+                .queryList();*/null;
         List<Anime> anime = new ArrayList<>();
-        StorageModelConverter.convertListToDomainModel(animes, anime);
+        StorageAnimeModelConverter.convertListToDomainModel(animes, anime);
         return anime;
     }
 
     @Override
-    public void updateAllAnimes() {
+    public void updateAll() {
 
         SyncAdapter.triggerSync(mContext);
 
@@ -183,10 +147,10 @@ public class AnimeRepositoryImpl implements AnimeRepository {
     @Override
     public void markSynced(List<Anime> animes) {
         // we have to convert it to the database model before storing
-//        List<moe.notify.animenotifier.storage.model.Anime> unsyncedAnimes =
-//                StorageModelConverter.convertListToStorageModel(animes);
+//        List<moe.notify.animenotifier.storage.model.anime.Anime> unsyncedAnimes =
+//                StorageAnimeModelConverter.convertListToStorageModel(animes);
 //
-//        for (moe.notify.animenotifier.storage.model.Anime anime : unsyncedAnimes) {
+//        for (moe.notify.animenotifier.storage.model.anime.Anime anime : unsyncedAnimes) {
 //            anime.synced = true;
 //            anime.update();
 //        }
@@ -194,8 +158,8 @@ public class AnimeRepositoryImpl implements AnimeRepository {
 
     @Override
     public void delete(Anime anime) {
-        moe.notify.animenotifier.storage.model.Anime dbItem = new moe.notify.animenotifier.storage.model.Anime();
-        StorageModelConverter.convertToStorageModel(anime, dbItem);
+        moe.notify.animenotifier.storage.model.anime.Anime dbItem = new moe.notify.animenotifier.storage.model.anime.Anime();
+        StorageAnimeModelConverter.convertToStorageModel(anime, dbItem);
         dbItem.delete();
 
         SyncAdapter.triggerSync(mContext);

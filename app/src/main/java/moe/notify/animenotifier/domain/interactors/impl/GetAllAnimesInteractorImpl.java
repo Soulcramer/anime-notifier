@@ -7,25 +7,27 @@ import moe.notify.animenotifier.domain.executor.MainThread;
 import moe.notify.animenotifier.domain.interactors.GetAllAnimesInteractor;
 import moe.notify.animenotifier.domain.interactors.base.AbstractInteractor;
 import moe.notify.animenotifier.domain.model.animelist.AnimeList;
-import moe.notify.animenotifier.domain.repository.AnimeRepository;
+import moe.notify.animenotifier.domain.repository.AnimeListRepository;
 
 
 public class GetAllAnimesInteractorImpl extends AbstractInteractor implements GetAllAnimesInteractor {
 
     private Callback mCallback;
-    private AnimeRepository mAnimeRepository;
+    private AnimeListRepository animeListRepository;
+    private String username;
 
-    public GetAllAnimesInteractorImpl(Executor threadExecutor, MainThread mainThread, @NonNull AnimeRepository animeRepository, @NonNull Callback callback) {
+    public GetAllAnimesInteractorImpl(Executor threadExecutor, MainThread mainThread, @NonNull AnimeListRepository animeListRepository, @NonNull Callback callback, String username) {
         super(threadExecutor, mainThread);
 
-        mAnimeRepository = animeRepository;
+        this.animeListRepository = animeListRepository;
         mCallback = callback;
+        this.username = username;
 
     }
 
     @Override
     public void run() {
-        final AnimeList animeList = mAnimeRepository.getAnimeListByUser("scott");
+        final AnimeList animeList = animeListRepository.getByUser(username);
 
 
         mainThread.post(new Runnable() {
