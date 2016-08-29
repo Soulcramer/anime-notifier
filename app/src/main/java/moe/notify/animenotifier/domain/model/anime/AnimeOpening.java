@@ -1,9 +1,11 @@
 package moe.notify.animenotifier.domain.model.anime;
 
 
-public class AnimeOpening {
+import moe.notify.animenotifier.domain.model.DomainModel;
 
-    public float similarity;
+public class AnimeOpening implements DomainModel {
+
+    public double similarity;
     public String permalink;
     public String uri;
     public String title;

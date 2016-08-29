@@ -16,9 +16,6 @@ import moe.notify.animenotifier.domain.model.anime.Anime;
 import moe.notify.animenotifier.domain.repository.AnimeRepository;
 import moe.notify.animenotifier.storage.AnimeRepositoryImpl;
 import moe.notify.animenotifier.utils.AuthUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 /**
@@ -33,24 +30,24 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
 
     private List<Anime> mUnsyncedAnimes;
     private Anime mUnsyncedAnime;
-    private Callback<Void> mResponseCallback = new Callback<Void>() {
-        @Override
-        public void onResponse(Call<Void> call, Response<Void> response) {
-            Timber.i("UPLOAD SUCCESS: %d", response.code());
-
-            if (response.isSuccessful()) {
-                mAnimeRepository.markSynced(mUnsyncedAnimes);
-            }
-        }
-
-        @Override
-        public void onFailure(Call<Void> call, Throwable t) {
-            Timber.e("UPLOAD FAIL");
-
-            // try to sync again
-            SyncResult syncResult = new SyncResult();
-        }
-    };
+//    private Callback<Void> mResponseCallback = new Callback<Void>() {
+//        @Override
+//        public void onResponse(Call<Void> call, Response<Void> response) {
+//            Timber.i("UPLOAD SUCCESS: %d", response.code());
+//
+//            if (response.isSuccessful()) {
+//                mAnimeRepository.markSynced(mUnsyncedAnimes);
+//            }
+//        }
+//
+//        @Override
+//        public void onFailure(Call<Void> call, Throwable t) {
+//            Timber.e("UPLOAD FAIL");
+//
+//            // try to sync again
+////            SyncResult syncResult = new SyncResult();
+//        }
+//    };
 
     public SyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);

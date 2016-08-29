@@ -1,7 +1,9 @@
 package moe.notify.animenotifier.domain.model.anime;
 
 
-public class AnimeTracks {
+import moe.notify.animenotifier.domain.model.DomainModel;
+
+public class AnimeTracks implements DomainModel {
 
     public AnimeOpening opening;
 

@@ -1,7 +1,9 @@
 package moe.notify.animenotifier.domain.model.anime;
 
 
-public class AnimeStudio {
+import moe.notify.animenotifier.domain.model.DomainModel;
+
+public class AnimeStudio implements DomainModel {
 
     public String name;
     public String wiki;

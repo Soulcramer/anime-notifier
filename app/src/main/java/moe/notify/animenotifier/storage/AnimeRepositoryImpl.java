@@ -133,7 +133,9 @@ public class AnimeRepositoryImpl implements AnimeRepository {
                 .where(Anime_Table.synced.eq(false))
                 .queryList();*/null;
         List<Anime> anime = new ArrayList<>();
-        StorageAnimeModelConverter.convertListToDomainModel(animes, anime);
+        if (animes != null) {
+            StorageAnimeModelConverter.convertListToDomainModel(animes, anime);
+        }
         return anime;
     }
 

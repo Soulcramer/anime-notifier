@@ -17,7 +17,7 @@ public final class DummyAccountProvider {
     public static Account getDummyAccount(Context context) {
         final String ACCOUNT = "dummyaccount";
         final String ACCOUNT_TYPE = context.getString(R.string.account_type);
-        final String AUTHORITY = context.getString(R.string.stub_content_authority);
+//        final String AUTHORITY = context.getString(R.string.stub_content_authority);
 
         // Create the account type and default account
         return new Account(ACCOUNT, ACCOUNT_TYPE);
@@ -28,7 +28,7 @@ public final class DummyAccountProvider {
      *
      * @param context The application context
      */
-    public static boolean CreateSyncAccount(Context context) {
+    public static boolean createSyncAccount(Context context) {
 
         Account newAccount = getDummyAccount(context);
 

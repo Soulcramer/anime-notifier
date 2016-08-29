@@ -2,8 +2,10 @@ package moe.notify.animenotifier.domain.model.anime;
 
 import java.util.List;
 
+import moe.notify.animenotifier.domain.model.DomainModel;
 
-public class AnimeTitle {
+
+public class AnimeTitle implements DomainModel {
 
 
     public String romaji;

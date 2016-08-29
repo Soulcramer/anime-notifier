@@ -57,7 +57,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final String userName = sharedPrefs.getString("userName", "");
+//        final String userName = sharedPrefs.getString("userName", "");
         largeIconWidth = context.getResources().getDimensionPixelSize(
                 (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) ? android.R.dimen.notification_large_icon_width : R.dimen.notification_large_icon_default)
         ;

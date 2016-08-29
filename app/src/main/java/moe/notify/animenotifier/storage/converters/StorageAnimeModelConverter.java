@@ -124,6 +124,8 @@ public final class StorageAnimeModelConverter {
         resultOpening.title = anime.tracks.opening.title;
         resultOpening.uri = anime.tracks.opening.uri;
         resultOpening.save();
+        resultTracks.opening = resultOpening;
+        resultTracks.save();
 
 
 //        resultTracks.associateOpening(resultOpening);
@@ -244,7 +246,7 @@ public final class StorageAnimeModelConverter {
 
 
     public static void convertListToStorageModel(List<moe.notify.animenotifier.domain.model.anime.Anime> animes, List<Anime> resultList) {
-        List<Anime> convertedCosts = new ArrayList<>();
+//        List<Anime> convertedCosts = new ArrayList<>();
 
         for (int i = 0; i < animes.size(); i++) {
             convertToStorageModel(animes.get(i), resultList.get(i));

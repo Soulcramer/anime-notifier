@@ -1,7 +1,9 @@
 package moe.notify.animenotifier.domain.model.anime;
 
 
-public class AnimeRelation {
+import moe.notify.animenotifier.domain.model.DomainModel;
+
+public class AnimeRelation implements DomainModel {
 
     public String type;
     public long id;

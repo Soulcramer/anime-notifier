@@ -12,7 +12,7 @@ import moe.notify.animenotifier.presentation.presenters.base.AbstractPresenter;
 
 public class AnimeListPresenterImpl extends AbstractPresenter implements AnimeListPresenter, GetAllAnimesInteractor.Callback {
 
-    private final String username = "Scott";
+    private static final String username = "Scott";
     private AnimeListPresenter.View view;
     private AnimeListRepository animeListRepository;
     private GetAllAnimesInteractorImpl getAnimesInteractor;

@@ -3,8 +3,10 @@ package moe.notify.animenotifier.domain.model.anime;
 import java.util.Date;
 import java.util.List;
 
+import moe.notify.animenotifier.domain.model.DomainModel;
 
-public class Anime {
+
+public class Anime implements DomainModel {
     public long id;
     public String type;
     public AnimeTitle title;
@@ -29,31 +31,4 @@ public class Anime {
     public AnimeTracks tracks;
 
 
-    @Override
-    public String toString() {
-        return "Anime{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", title=" + title.toString() +
-                ", image='" + image + '\'' +
-                ", airingStatus='" + airingStatus + '\'' +
-                ", adult=" + adult +
-                ", watching=" + watching +
-                ", description='" + description + '\'' +
-                ", startDate=" + startDate.toString() +
-                ", endDate=" + endDate.toString() +
-                ", youtubeId='" + youtubeId + '\'' +
-                ", genres=" + genres.size() +
-                ", source='" + source + '\'' +
-                ", classification='" + classification + '\'' +
-                ", totalEpisodes=" + totalEpisodes +
-                ", duration=" + duration +
-                ", hashtag='" + hashtag + '\'' +
-                ", anilistEdited=" + anilistEdited +
-                ", links=" + links.size() +
-                ", studios=" + studios.size() +
-                ", relations=" + relations.size() +
-                ", tracks=" + tracks.toString() +
-                '}';
-    }
 }

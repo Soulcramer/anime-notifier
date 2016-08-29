@@ -12,7 +12,7 @@ import moe.notify.animenotifier.storage.database.AnimeDatabase;
 public class AnimeOpening extends BaseModel {
 
     @Column
-    public float similarity;
+    public double similarity;
     @Column
     public String permalink;
     @Column

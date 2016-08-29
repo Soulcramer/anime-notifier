@@ -1,6 +1,7 @@
 package moe.notify.animenotifier.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.freezingwind.animereleasenotifier.R;
 
@@ -126,18 +127,21 @@ public final class DateUtils {
         return c.getTime();
     }
 
-    public static Date iso8601ToDate(String iso8601) {
+    public static synchronized Date iso8601ToDate(@Nullable String iso8601) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.ENGLISH);
         Date myDate = null;
         try {
             myDate = df.parse(iso8601);
         } catch (ParseException e) {
             Timber.e(e, "Error while parsing the iso8601 date to a Date object.");
+        } catch (NullPointerException e) {
+            Timber.w("The iso8601 date was null, so we return today's date");
+            myDate = new Date();
         }
         return myDate;
     }
 
-    public static String DateToIso8601(Date date) {
+    public static synchronized String dateToIso8601(@Nullable Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         ISO8601DATETIMEFORMAT.setTimeZone(tz);
         return ISO8601DATETIMEFORMAT.format(date);
