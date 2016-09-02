@@ -1,5 +1,7 @@
 package moe.notify.animenotifier.presentation.ui.activities;
 
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -18,8 +20,10 @@ import com.freezingwind.animereleasenotifier.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import moe.notify.animenotifier.AndroidApplication;
 import moe.notify.animenotifier.presentation.ui.fragments.AnimeListFragment;
 import moe.notify.animenotifier.presentation.ui.fragments.SettingsFragment;
+import moe.notify.animenotifier.receiver.BootReceiver;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity
@@ -44,6 +48,10 @@ public class MainActivity extends AppCompatActivity
 
         init();
 
+        enableBootReceiver();
+
+        AndroidApplication.scheduleAlarm(this);
+
     }
 
     @Override
@@ -65,6 +73,16 @@ public class MainActivity extends AppCompatActivity
         mNavigationView.setNavigationItemSelectedListener(this);
         onNavigationItemSelected(mNavigationView.getMenu().findItem(R.id.nav_animeList));
         mNavigationView.setCheckedItem(R.id.nav_animeList);
+    }
+
+    // Enable boot receiver
+    private void enableBootReceiver() {
+        ComponentName receiver = new ComponentName(this, BootReceiver.class);
+        PackageManager packageManager = this.getPackageManager();
+
+        packageManager.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 
     @Override

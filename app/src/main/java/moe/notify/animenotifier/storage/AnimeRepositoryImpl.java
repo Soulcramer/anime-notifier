@@ -25,10 +25,14 @@ import static moe.notify.animenotifier.storage.converters.StorageAnimeModelConve
 
 public class AnimeRepositoryImpl implements AnimeRepository {
 
-    private final Context mContext;
+    private final Context context;
 
     public AnimeRepositoryImpl(Context context) {
-        mContext = context;
+        this.context = context;
+    }
+
+    public AnimeRepositoryImpl() {
+        context = null;
     }
 
     @Override
@@ -52,7 +56,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
         dbItem.synced = false;
         dbItem.update();
 
-//        SyncAdapter.triggerSync(mContext);
+//        SyncAdapter.triggerSync(context);
     }
 
     @Override
@@ -121,7 +125,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
         return animes1;
 
 
-//        SyncAdapter.triggerSync(mContext);
+//        SyncAdapter.triggerSync(context);
     }
 
 
@@ -142,7 +146,7 @@ public class AnimeRepositoryImpl implements AnimeRepository {
     @Override
     public void updateAll() {
 
-        SyncAdapter.triggerSync(mContext);
+        SyncAdapter.triggerSync(context);
 
     }
 
@@ -164,6 +168,6 @@ public class AnimeRepositoryImpl implements AnimeRepository {
         StorageAnimeModelConverter.convertToStorageModel(anime, dbItem);
         dbItem.delete();
 
-        SyncAdapter.triggerSync(mContext);
+        SyncAdapter.triggerSync(context);
     }
 }

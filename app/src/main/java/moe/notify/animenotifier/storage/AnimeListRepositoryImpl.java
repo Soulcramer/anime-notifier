@@ -25,6 +25,10 @@ public class AnimeListRepositoryImpl implements AnimeListRepository {
         this.context = context;
     }
 
+    public AnimeListRepositoryImpl() {
+        context = null;
+    }
+
     @Override
     public void insert(AnimeList item) {
         moe.notify.animenotifier.storage.model.animelist.AnimeList dbItem = new moe.notify.animenotifier.storage.model.animelist.AnimeList();

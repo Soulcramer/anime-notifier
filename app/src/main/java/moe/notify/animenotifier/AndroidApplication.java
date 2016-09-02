@@ -11,6 +11,7 @@ import com.facebook.stetho.Stetho;
 import com.freezingwind.animereleasenotifier.BuildConfig;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
+import com.squareup.leakcanary.LeakCanary;
 
 import moe.notify.animenotifier.helpers.AlarmHelper;
 import moe.notify.animenotifier.receiver.AlarmReceiver;
@@ -22,7 +23,7 @@ public class AndroidApplication extends Application {
     // Schedule alarm
     public static void scheduleAlarm(Context context) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        int updateInterval = Integer.parseInt(sharedPrefs.getString("updateInterval", "60"));
+        long updateInterval = Long.parseLong(sharedPrefs.getString("updateInterval", "30"));
 
         AlarmHelper alarmHelper = new AlarmHelper(context, 1000L * 60L * updateInterval, 1000L) {
             @Override
@@ -33,6 +34,10 @@ public class AndroidApplication extends Application {
         };
 
         alarmHelper.scheduleUnconditionally();
+    }
+
+    public static AndroidApplication get(Context context) {
+        return (AndroidApplication) context.getApplicationContext();
     }
 
     @Override
@@ -52,6 +57,9 @@ public class AndroidApplication extends Application {
 
         // enable stetho
         Stetho.initializeWithDefaults(this);
+
+        // install LeakCanary
+        LeakCanary.install(this);
     }
 
 

@@ -4,7 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.os.SystemClock;
-import android.util.Log;
+
+import timber.log.Timber;
 
 /**
  * Example: schedule about twice a day, and wait at least 10 minutes before the first alarm
@@ -38,9 +39,9 @@ public abstract class AlarmHelper {
     public void scheduleIfMissing() {
         if (false) {//pendingIntent(context, PendingIntent.FLAG_NO_CREATE) != null) {
             // Assume that finding the intent means the alarm has been scheduled.
-            Log.d("AlarmHelper", "Found pending intent, not scheduling the alarm");
+            Timber.d("Found pending intent, not scheduling the alarm");
         } else {
-            Log.d("AlarmHelper", "Didn't find the pending intent, scheduling the alarm");
+            Timber.d("Didn't find the pending intent, scheduling the alarm");
             scheduleUnconditionally();
         }
     }

@@ -68,7 +68,21 @@
             android:exported="false"
             android:syncable="true"/>
 
+        <receiver
+            android:name="moe.notify.animenotifier.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+        <receiver
+            android:name="moe.notify.animenotifier.receiver.BootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
+
 
 </manifest>
 
