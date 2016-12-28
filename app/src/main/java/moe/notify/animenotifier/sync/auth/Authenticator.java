@@ -13,7 +13,7 @@ import android.os.Bundle;
  * <p/>
  * We need at least a stub Android authentication so we can use the Android Sync adapter mechanism.
  */
-public class Authenticator extends AbstractAccountAuthenticator {
+class Authenticator extends AbstractAccountAuthenticator {
     // Simple constructor
     public Authenticator(Context context) {
         super(context);

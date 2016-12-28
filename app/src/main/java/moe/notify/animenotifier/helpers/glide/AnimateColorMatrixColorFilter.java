@@ -3,8 +3,7 @@ package moe.notify.animenotifier.helpers.glide;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 
-
-public class AnimateColorMatrixColorFilter {
+class AnimateColorMatrixColorFilter {
     private ColorMatrixColorFilter mFilter;
     private ColorMatrix mMatrix;
 
@@ -20,7 +19,7 @@ public class AnimateColorMatrixColorFilter {
         return mMatrix;
     }
 
-    public void setColorMatrix(ColorMatrix matrix) {
+  private void setColorMatrix(ColorMatrix matrix) {
         mMatrix = matrix;
         mFilter = new ColorMatrixColorFilter(matrix);
     }

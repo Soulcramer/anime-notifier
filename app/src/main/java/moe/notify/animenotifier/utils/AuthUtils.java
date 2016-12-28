@@ -8,9 +8,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-
 import com.freezingwind.animereleasenotifier.R;
-
 import timber.log.Timber;
 
 /**
@@ -19,6 +17,8 @@ import timber.log.Timber;
  * This class will store useful utility methods for managing accounts on Android.
  */
 public final class AuthUtils {
+
+  public static final int meh = 3;
 
     private AuthUtils() {
     }

@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 /**
  * Define an implementation of ContentProvider that stubs out
@@ -22,8 +23,7 @@ public class StubProvider extends ContentProvider {
     /*
      * Return no type for MIME type
      */
-    @Override
-    public String getType(Uri uri) {
+    @Override public String getType(@NonNull Uri uri) {
         return null;
     }
 
@@ -32,8 +32,7 @@ public class StubProvider extends ContentProvider {
      *
      */
     @Override
-    public Cursor query(
-            Uri uri,
+    public Cursor query(@NonNull Uri uri,
             String[] projection,
             String selection,
             String[] selectionArgs,
@@ -44,16 +43,14 @@ public class StubProvider extends ContentProvider {
     /*
      * insert() always returns null (no URI)
      */
-    @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    @Override public Uri insert(@NonNull Uri uri, ContentValues values) {
         return null;
     }
 
     /*
      * delete() always returns "no rows affected" (0)
      */
-    @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    @Override public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         return 0;
     }
 
@@ -61,8 +58,7 @@ public class StubProvider extends ContentProvider {
      * update() always returns "no rows affected" (0)
      */
     @Override
-    public int update(
-            Uri uri,
+    public int update(@NonNull Uri uri,
             ContentValues values,
             String selection,
             String[] selectionArgs) {

@@ -1,6 +1,6 @@
 package moe.notify.animenotifier.updater;
 
-public class AnimeUpdater {
+class AnimeUpdater {
 //    private static final String TAG = "AnimeUpdater";
 //
 //    private final OkHttpClient mClient;

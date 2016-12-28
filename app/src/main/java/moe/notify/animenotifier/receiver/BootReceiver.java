@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import moe.notify.animenotifier.AndroidApplication;
 
 public class BootReceiver extends BroadcastReceiver {
@@ -26,7 +25,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            AndroidApplication.scheduleAlarm(context);
+          AndroidApplication.Companion.scheduleAlarm(context);
         }
     }
 

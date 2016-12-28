@@ -3,18 +3,17 @@ package moe.notify.animenotifier.sync.auth;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-
 import com.freezingwind.animereleasenotifier.R;
 
 /**
  *
  */
-public final class DummyAccountProvider {
+final class DummyAccountProvider {
 
     private DummyAccountProvider() {
     }
 
-    public static Account getDummyAccount(Context context) {
+  private static Account getDummyAccount(Context context) {
         final String ACCOUNT = "dummyaccount";
         final String ACCOUNT_TYPE = context.getString(R.string.account_type);
 //        final String AUTHORITY = context.getString(R.string.stub_content_authority);

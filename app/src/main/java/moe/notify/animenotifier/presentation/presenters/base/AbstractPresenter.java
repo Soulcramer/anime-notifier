@@ -9,10 +9,10 @@ import moe.notify.animenotifier.domain.executor.MainThread;
  * reference to the Executor and MainThread objects that are needed for running interactors in a background thread.
  */
 public abstract class AbstractPresenter {
-    protected Executor mExecutor;
-    protected MainThread mMainThread;
+  protected final Executor mExecutor;
+  protected final MainThread mMainThread;
 
-    public AbstractPresenter(Executor executor, MainThread mainThread) {
+  protected AbstractPresenter(Executor executor, MainThread mainThread) {
         mExecutor = executor;
         mMainThread = mainThread;
     }

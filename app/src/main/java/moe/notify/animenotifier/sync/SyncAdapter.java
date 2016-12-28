@@ -7,11 +7,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
-
 import com.freezingwind.animereleasenotifier.R;
-
 import java.util.List;
-
 import moe.notify.animenotifier.domain.model.anime.Anime;
 import moe.notify.animenotifier.domain.repository.AnimeRepository;
 import moe.notify.animenotifier.storage.AnimeRepositoryImpl;
@@ -24,9 +21,9 @@ import timber.log.Timber;
  *  
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-    private Context mContext;
+    private final Context mContext;
 
-    private AnimeRepository mAnimeRepository;
+    private final AnimeRepository mAnimeRepository;
 
     private List<Anime> mUnsyncedAnimes;
     private Anime mUnsyncedAnime;

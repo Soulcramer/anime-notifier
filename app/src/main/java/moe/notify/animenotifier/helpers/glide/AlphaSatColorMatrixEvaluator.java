@@ -4,9 +4,9 @@ package moe.notify.animenotifier.helpers.glide;
 import android.animation.TypeEvaluator;
 import android.graphics.ColorMatrix;
 
-public class AlphaSatColorMatrixEvaluator implements TypeEvaluator {
-    float[] elements = new float[20];
-    private ColorMatrix colorMatrix;
+class AlphaSatColorMatrixEvaluator implements TypeEvaluator {
+  private final float[] elements = new float[20];
+  private final ColorMatrix colorMatrix;
 
     public AlphaSatColorMatrixEvaluator() {
         colorMatrix = new ColorMatrix();

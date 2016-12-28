@@ -1,11 +1,10 @@
 package moe.notify.animenotifier.domain.executor.impl;
 
-
+import android.support.annotation.NonNull;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
 import moe.notify.animenotifier.domain.executor.Executor;
 import moe.notify.animenotifier.domain.interactors.base.AbstractInteractor;
 
@@ -19,10 +18,10 @@ public class ThreadExecutor implements Executor {
     private static final int MAX_POOL_SIZE = 5;
     private static final int KEEP_ALIVE_TIME = 120;
     private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
-    private static final BlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<Runnable>();
+    private static final BlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingQueue<>();
     // This is a singleton
     private static volatile ThreadExecutor sThreadExecutor;
-    private ThreadPoolExecutor mThreadPoolExecutor;
+    private final ThreadPoolExecutor mThreadPoolExecutor;
 
     private ThreadExecutor() {
         long keepAlive = KEEP_ALIVE_TIME;
@@ -46,8 +45,7 @@ public class ThreadExecutor implements Executor {
         return sThreadExecutor;
     }
 
-    @Override
-    public void execute(final AbstractInteractor interactor) {
+    @Override public void execute(@NonNull final AbstractInteractor interactor) {
         mThreadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {

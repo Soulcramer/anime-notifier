@@ -1,12 +1,7 @@
 package moe.notify.animenotifier.domain.repository;
 
 import java.util.List;
-
 import moe.notify.animenotifier.domain.model.animelist.AnimeList;
-
-/**
- * Created by GOKU on 24/08/2016.
- */
 
 public interface AnimeListRepository {
 

@@ -1,29 +1,24 @@
 package moe.notify.animenotifier.domain.interactors;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-
 import moe.notify.animenotifier.domain.executor.Executor;
 import moe.notify.animenotifier.domain.executor.MainThread;
 import moe.notify.animenotifier.domain.interactors.impl.GetAnimeInteractorImpl;
 import moe.notify.animenotifier.domain.model.anime.Anime;
 import moe.notify.animenotifier.domain.repository.AnimeRepository;
 import moe.notify.animenotifier.threading.TestMainThread;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.when;
 
 public class GetAnimeInteractorlTest {
-    private MainThread mMainThread;
-    @Mock
-    private Executor mExecutor;
-    @Mock
-    private AnimeRepository mCostRepository;
-    @Mock
-    private GetAnimeInteractor.Callback mMockedCallback;
-
+    @Mock Executor mExecutor;
+    @Mock AnimeRepository mCostRepository;
+    @Mock GetAnimeInteractor.Callback mMockedCallback;
+  private MainThread mMainThread;
     private long animeId;
 
     @Before

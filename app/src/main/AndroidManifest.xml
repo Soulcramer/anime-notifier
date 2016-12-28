@@ -13,9 +13,12 @@
     <application
         android:name="moe.notify.animenotifier.AndroidApplication"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        >
         <activity
             android:name="moe.notify.animenotifier.presentation.ui.activities.MainActivity"
             android:label="@string/title_activity_main"
@@ -52,8 +55,7 @@
         </service>
         <service
             android:name="moe.notify.animenotifier.sync.SyncService"
-            android:exported="true"
-            android:permission="">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.content.SyncAdapter"/>
             </intent-filter>
@@ -71,7 +73,7 @@
         <receiver
             android:name="moe.notify.animenotifier.receiver.AlarmReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </receiver>
         <receiver
             android:name="moe.notify.animenotifier.receiver.BootReceiver"

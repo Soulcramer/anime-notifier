@@ -6,12 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.freezingwind.animereleasenotifier.R;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
+import com.freezingwind.animereleasenotifier.R;
 import moe.notify.animenotifier.domain.executor.impl.ThreadExecutor;
 import moe.notify.animenotifier.domain.model.anime.Anime;
 import moe.notify.animenotifier.presentation.presenters.AnimePresenter;
@@ -25,16 +23,11 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
 
     // Automatically finds each field by the specified ID.
-    @BindView(R.id.anime_summary_txt)
-    TextView descriptionTextView;
-    @BindView(R.id.anime_airingStatus_txt)
-    TextView airingStatusTextView;
-    @BindView(R.id.anime_source_txt)
-    TextView sourceTextView;
-    @BindView(R.id.anime_image)
-    ImageView coverImageView;
-    @BindView(R.id.toolbar)
-    Toolbar mAnimeToolbar;
+    @BindView(R.id.anime_summary_txt) TextView descriptionTextView;
+  @BindView(R.id.anime_airingStatus_txt) TextView airingStatusTextView;
+  @BindView(R.id.anime_source_txt) TextView sourceTextView;
+  @BindView(R.id.anime_image) ImageView coverImageView;
+  @BindView(R.id.toolbar) Toolbar mAnimeToolbar;
     private AnimePresenter animePresenter;
     private long animeId;
 
@@ -76,8 +69,7 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
     private void init() {
         animePresenter = new AnimePresenterImpl(
-                ThreadExecutor.getInstance(),
-                MainThreadImpl.getInstance(),
+                ThreadExecutor.getInstance(), MainThreadImpl.Companion.getInstance(),
                 this,
                 new AnimeRepositoryImpl(this)
         );
@@ -101,16 +93,15 @@ public class AnimeActivity extends AppCompatActivity implements AnimePresenter.V
 
     @Override
     public void showAnime(Anime anime) {
-        Glide.with(this)
-                .load(anime.image)
+        Glide.with(this).load(anime.getImage())
                 .crossFade()
                 .fitCenter()
                 .into(coverImageView);
-        descriptionTextView.setText(anime.description);
-        airingStatusTextView.setText(anime.airingStatus);
-        sourceTextView.setText(anime.source);
-        getSupportActionBar().setTitle(anime.title.romaji);
-        getSupportActionBar().setSubtitle(anime.title.japanese);
+      descriptionTextView.setText(anime.getDescription());
+      airingStatusTextView.setText(anime.getAiringStatus());
+      sourceTextView.setText(anime.getSource());
+      getSupportActionBar().setTitle(anime.getTitle().getRomaji());
+      getSupportActionBar().setSubtitle(anime.getTitle().getJapanese());
 
     }
 

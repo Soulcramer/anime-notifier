@@ -2,9 +2,7 @@ package moe.notify.animenotifier.utils;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-
 import com.freezingwind.animereleasenotifier.R;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,13 +10,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import timber.log.Timber;
 
+final class DateUtils {
 
-public final class DateUtils {
-
-    static SimpleDateFormat ISO8601DATETIMEFORMAT = new SimpleDateFormat("yyyy/MM/dd 'T'HH:mmZ", Locale.ENGLISH);
+  private static final SimpleDateFormat ISO8601DATETIMEFORMAT =
+      new SimpleDateFormat("yyyy/MM/dd 'T'HH:mmZ", Locale.ENGLISH);
 
     private DateUtils() {
     }
@@ -62,7 +59,7 @@ public final class DateUtils {
         } else if (date.equals(tomorrow)) {  // test if yesterday
             textDate = context.getString(R.string.date_anime_tomorrow);
         } else {
-            textDate = formatDate(date, new SimpleDateFormat("dd.MM"));
+          textDate = formatDate(date, new SimpleDateFormat("dd.MM", Locale.ENGLISH));
         }
         // FIXME: 13/08/2016 add string ressources
         textDate = "";
@@ -93,7 +90,7 @@ public final class DateUtils {
         return sdf.format(date);
     }
 
-    public static String formatDate(Date date, SimpleDateFormat sdf) {
+  private static String formatDate(Date date, SimpleDateFormat sdf) {
         return sdf.format(date);
     }
 
@@ -113,7 +110,7 @@ public final class DateUtils {
         return today;
     }
 
-    public static Date truncateHours(Date date) {
+  private static Date truncateHours(Date date) {
         Calendar c = Calendar.getInstance();
 
         // set the calendar to start of today

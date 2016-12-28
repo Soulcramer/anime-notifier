@@ -4,7 +4,7 @@ package moe.notify.animenotifier.utils;
 import java.util.Calendar;
 import java.util.Date;
 
-public class TestDateUtil {
+class TestDateUtil {
 
     public static Date getDate(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
